@@ -1,22 +1,33 @@
 import {createStore, combineReducers, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { productListReducers,productDetailsReducers } from '../reducers/productReducers';
+import { productListReducers,productDetailsReducers, productDeleteReducers, productCreateReducers, productUpdateReducers, productReviewCreateReducers } from '../reducers/productReducers';
 import {cartReducer} from '../reducers/cartReducers';
-import {userDetailsReducers, userLoginReducers, userRegisterReducers, userUpdateProfileReducers} from '../reducers/userReducers'
-import { orderCreateReducer, orderDetailReducer, orderListMyReducer, orderPayReducer } from '../reducers/orderReducers';
+import {userDeleteReducer, userDetailsReducers, userListReducer, userLoginReducers, userRegisterReducers, userUpdateProfileReducers, userUpdateReducer} from '../reducers/userReducers'
+import { orderCreateReducer, orderDeliverReducer, orderDetailReducer, orderListMyReducer, orderListReducer, orderPayReducer } from '../reducers/orderReducers';
 const reducer = combineReducers({
     productList : productListReducers,
     productDetails: productDetailsReducers,
+    productDelete: productDeleteReducers,
+    productCreate: productCreateReducers,
+    productUpdate: productUpdateReducers,
+    productReviewCreate: productReviewCreateReducers,
     cart:cartReducer,
     userLogin: userLoginReducers,
     userRegister: userRegisterReducers,
     userDetails: userDetailsReducers,
     userUpdateProfile: userUpdateProfileReducers,
+    userList: userListReducer,
+    userDelete: userDeleteReducer,
+    userUpdate: userUpdateReducer,
     orderCreate: orderCreateReducer,
     orderDetails: orderDetailReducer,
     orderPay: orderPayReducer,
     orderListMy: orderListMyReducer,
+    orderList: orderListReducer,
+    orderDeliver: orderDeliverReducer,
+
+    
 })
 
 const cartItemsFromStorage = localStorage.getItem("cartItems") ? JSON.parse(localStorage.getItem('cartItems')) : [];
