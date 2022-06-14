@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Link, useNavigate, useParams} from 'react-router-dom';
+import {Link, useLocation, useNavigate, useParams} from 'react-router-dom';
 import { Row,Col,Button, Table} from 'react-bootstrap';
 import {useDispatch, useSelector} from 'react-redux'
 import Loader from '../components/Loader';
@@ -7,6 +7,7 @@ import Message from '../components/Message';
 import { LinkContainer } from 'react-router-bootstrap';
 import { deleteProduct, listProducts, createProduct } from '../actions/productActions';
 import { PRODUCT_CREATE_RESET } from '../constant/productConstants'
+import Paginate from '../components/Paginate';
 
 
 const UserListScreen = () => {
@@ -15,12 +16,15 @@ const UserListScreen = () => {
 
     const dispatch = useDispatch();
     const history = useNavigate();
-
+    
+    let keyword = useLocation().search;
+    console.log(keyword)
     const productList = useSelector(state => state.productList);
-    const { loading, error, products } = productList
+    const { loading, error, products, page,pages } = productList
 
     const productDelete = useSelector(state => state.productDelete);
     const { loading:loadingDelete, error: errorDelete, success: successDelete } = productDelete
+    
     const productCreate = useSelector(state => state.productCreate);
     const { loading:loadingCreate, error: errorCreate, success: successCreate , product:createdProduct } = productCreate
 
@@ -38,9 +42,9 @@ const UserListScreen = () => {
         if(successCreate){
             history(`/admin/product/${createdProduct._id}/edit`)
         }else{
-            dispatch(listProducts())
+            dispatch(listProducts(keyword))
         }
-    },[dispatch,history, userInfo,successDelete,successCreate,createdProduct])
+    },[dispatch,history, userInfo,successDelete,successCreate,createdProduct,keyword])
 
     const deleteHandler = (id) =>{
         if(window.confirm('Are you sure you want to delete this product?')){
@@ -75,7 +79,8 @@ const UserListScreen = () => {
 
 
             {loading ? (<Loader />) : error ? (<Message variant='danger'>{error}</Message>)
-            : (<Table striped bordered hover responsive className="table-sm">
+            : (<div>
+            <Table striped bordered hover responsive className="table-sm">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -107,7 +112,10 @@ const UserListScreen = () => {
                             </tr>
                         ))}
                     </tbody>
-            </Table>)}
+            </Table>
+            <Paginate pages={pages} page={page} isAdmin={true} keyword={keyword}/>
+            </div>
+            )}
         </div>
     );
 };
