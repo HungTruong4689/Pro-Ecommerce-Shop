@@ -45,7 +45,7 @@ export const createOrder = (order) => async (dispatch, getState) =>{
             }
         }
 
-        const {data} = await axios.post(`http://127.0.0.1:8000/api/orders/add/`,order,config)
+        const {data} = await axios.post(`https://proshop3689.herokuapp.com/api/orders/add/`,order,config)
 
 
         dispatch({
@@ -85,7 +85,7 @@ export const getOrderDetails = (id) => async (dispatch, getState) =>{
             }
         }
 
-        const {data} = await axios.get(`http://127.0.0.1:8000/api/orders/${id}/`,config)
+        const {data} = await axios.get(`https://proshop3689.herokuapp.com/api/orders/${id}/`,config)
 
 
         dispatch({
@@ -120,7 +120,7 @@ export const payOrder = (id,paymentResult) => async (dispatch, getState) =>{
             }
         }
 
-        const {data} = await axios.put(`http://127.0.0.1:8000/api/orders/${id}/pay/`,paymentResult,config)
+        const {data} = await axios.put(`https://proshop3689.herokuapp.com/api/orders/${id}/pay/`,paymentResult,config)
 
 
         dispatch({
@@ -156,7 +156,7 @@ export const listMyOrders = () => async (dispatch, getState) =>{
             }
         }
 
-        const {data} = await axios.get(`http://127.0.0.1:8000/api/orders/myorders/`,config)
+        const {data} = await axios.get(`https://proshop3689.herokuapp.com/api/orders/myorders/`,config)
 
 
         dispatch({
@@ -192,7 +192,7 @@ export const listOrders = () => async (dispatch, getState) =>{
             }
         }
 
-        const {data} = await axios.get(`http://127.0.0.1:8000/api/orders/`,config)
+        const {data} = await axios.get(`https://proshop3689.herokuapp.com/api/orders/`,config)
 
 
         dispatch({
@@ -227,7 +227,7 @@ export const deliverOrder = (order) => async (dispatch, getState) =>{
             }
         }
 
-        const {data} = await axios.put(`http://127.0.0.1:8000/api/orders/${order._id}/deliver/`,{},config)
+        const {data} = await axios.put(`https://proshop3689.herokuapp.com/api/orders/${order._id}/deliver/`,{},config)
 
 
         dispatch({
